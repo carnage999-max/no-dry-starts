@@ -42,12 +42,12 @@ export default function Home() {
             </div>
 
             {/* Hero Image */}
-            <div className="relative">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-[var(--color-tiger-orange-500)]">
+            <div className="relative flex items-center justify-center">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-[var(--color-tiger-orange-500)] max-w-md lg:max-w-lg">
                 <img 
                   src="/images/engine-hero.png" 
                   alt="Engine - The worst thing you can do to your engine is to start it. We fix that." 
-                  className="w-full h-full object-cover aspect-square lg:aspect-[4/3]"
+                  className="w-full h-auto object-contain"
                 />
               </div>
             </div>
@@ -194,45 +194,6 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[var(--color-graphite-950)] border-t border-[var(--color-graphite-800)] py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-xl font-bold text-[var(--color-tiger-orange-500)] mb-4">NO DRY STARTS®</h3>
-              <p className="text-[var(--color-white-400)] text-sm">
-                Eliminating cold-start engine wear through innovative pre-primer technology.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-[var(--color-white-200)] font-semibold mb-4">Product</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/how-it-works" className="text-[var(--color-white-400)] hover:text-[var(--color-white-200)]">How It Works</Link></li>
-                <li><Link href="/the-problem" className="text-[var(--color-white-400)] hover:text-[var(--color-white-200)]">The Problem</Link></li>
-                <li><Link href="/the-solution" className="text-[var(--color-white-400)] hover:text-[var(--color-white-200)]">The Solution</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-[var(--color-white-200)] font-semibold mb-4">Resources</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/patents" className="text-[var(--color-white-400)] hover:text-[var(--color-white-200)]">Patents & Docs</Link></li>
-                <li><Link href="/partners" className="text-[var(--color-white-400)] hover:text-[var(--color-white-200)]">Prototype Partners</Link></li>
-                <li><Link href="/investors" className="text-[var(--color-white-400)] hover:text-[var(--color-white-200)]">Investors</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-[var(--color-white-200)] font-semibold mb-4">Contact</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/contact" className="text-[var(--color-white-400)] hover:text-[var(--color-white-200)]">Get in Touch</Link></li>
-                <li><Link href="/contact" className="text-[var(--color-white-400)] hover:text-[var(--color-white-200)]">Request Quote</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-8 pt-8 border-t border-[var(--color-graphite-800)] text-center text-sm text-[var(--color-white-400)]">
-            <p>&copy; {new Date().getFullYear()} No Dry Starts®. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
-
       <Footer />
     </div>
   );

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/Button';
-import { Mail, Phone, MapPin, FileText, Users, TrendingUp, Globe } from 'lucide-react';
+import { Mail, Phone, MapPin, FileText, Users, TrendingUp } from 'lucide-react';
 
 export const Footer = () => {
   return (
@@ -11,18 +11,13 @@ export const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-xl font-bold text-[var(--color-tiger-orange-500)]">NO DRY STARTS®</h3>
             <p className="text-[var(--color-white-400)] text-sm">
-              The first consumer-friendly system to eliminate cold-start engine wear by building full oil pressure before ignition.
+              The first system to eliminate cold-start engine wear by building full oil pressure before ignition.
             </p>
-            <div className="flex space-x-4">
-              <a href="https://mylibertysocial.com" className="text-[var(--color-white-400)] hover:text-[var(--color-tiger-orange-500)] transition-colors">
-                <Globe size={20} />
-              </a>
-            </div>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-[var(--color-white-200)]">Quick Links</h4>
+            <h4 className="text-lg font-semibold text-[var(--color-white-200)]">Product</h4>
             <div className="space-y-2">
               <Link href="/how-it-works" className="block text-[var(--color-white-400)] hover:text-[var(--color-white-200)] transition-colors text-sm">
                 How It Works
@@ -34,10 +29,7 @@ export const Footer = () => {
                 The Solution
               </Link>
               <Link href="/patents" className="block text-[var(--color-white-400)] hover:text-[var(--color-white-200)] transition-colors text-sm">
-                Patents
-              </Link>
-              <Link href="/partners" className="block text-[var(--color-white-400)] hover:text-[var(--color-white-200)] transition-colors text-sm">
-                Partners
+                Patents & Docs
               </Link>
             </div>
           </div>
@@ -49,21 +41,12 @@ export const Footer = () => {
               <Link href="/investors" className="block text-[var(--color-white-400)] hover:text-[var(--color-white-200)] transition-colors text-sm">
                 Investor Information
               </Link>
+              <Link href="/partners" className="block text-[var(--color-white-400)] hover:text-[var(--color-white-200)] transition-colors text-sm">
+                Prototype Partners
+              </Link>
               <Link href="/contact" className="block text-[var(--color-white-400)] hover:text-[var(--color-white-200)] transition-colors text-sm">
                 Request Prototype Quote
               </Link>
-              <a href="#" className="flex items-center gap-2 text-[var(--color-white-400)] hover:text-[var(--color-white-200)] transition-colors text-sm">
-                <FileText size={16} />
-                Technical Documentation
-              </a>
-              <a href="#" className="flex items-center gap-2 text-[var(--color-white-400)] hover:text-[var(--color-white-200)] transition-colors text-sm">
-                <Users size={16} />
-                Partner Portal
-              </a>
-              <a href="#" className="flex items-center gap-2 text-[var(--color-white-400)] hover:text-[var(--color-white-200)] transition-colors text-sm">
-                <TrendingUp size={16} />
-                Market Analysis
-              </a>
             </div>
           </div>
 
@@ -72,22 +55,21 @@ export const Footer = () => {
             <h4 className="text-lg font-semibold text-[var(--color-white-200)]">Contact</h4>
             <div className="space-y-3">
               <div className="flex items-start gap-3 text-[var(--color-white-400)] text-sm">
-                <Mail size={16} className="mt-0.5 flex-shrink-0" />
+                <MapPin size={16} className="mt-0.5 flex-shrink-0" />
                 <div>
-                  <p>info@nodrystarts.com</p>
-                  <p>sales@nodrystarts.com</p>
+                  <p>P.O. Box 52</p>
+                  <p>Detroit, ME 04929</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 text-[var(--color-white-400)] text-sm">
                 <Phone size={16} className="flex-shrink-0" />
-                <p>+1 (555) 123-4567</p>
+                <p>(207) 947-1999</p>
               </div>
               <div className="flex items-start gap-3 text-[var(--color-white-400)] text-sm">
-                <MapPin size={16} className="mt-0.5 flex-shrink-0" />
-                <p>
-                  123 Innovation Drive<br />
-                  Tech Valley, CA 94043
-                </p>
+                <Mail size={16} className="mt-0.5 flex-shrink-0" />
+                <a href="mailto:info@nodrystarts.com" className="hover:text-[var(--color-white-200)] transition-colors">
+                  info@nodrystarts.com
+                </a>
               </div>
             </div>
             <div className="pt-4">
@@ -99,25 +81,8 @@ export const Footer = () => {
             </div>
           </div>
         </div>
-
-        {/* Bottom Bar */}
-        <div className="border-t border-[var(--color-graphite-800)] mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-[var(--color-white-400)] text-sm">
-              &copy; {new Date().getFullYear()} No Dry Starts®. All rights reserved.
-            </p>
-            <div className="flex space-x-6 text-sm">
-              <a href="#" className="text-[var(--color-white-400)] hover:text-[var(--color-white-200)] transition-colors">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-[var(--color-white-400)] hover:text-[var(--color-white-200)] transition-colors">
-                Terms of Service
-              </a>
-              <a href="#" className="text-[var(--color-white-400)] hover:text-[var(--color-white-200)] transition-colors">
-                Cookie Policy
-              </a>
-            </div>
-          </div>
+        <div className="mt-8 pt-8 border-t border-[var(--color-graphite-800)] text-center text-sm text-[var(--color-white-400)]">
+          <p>&copy; {new Date().getFullYear()} No Dry Starts®. All rights reserved.</p>
         </div>
       </div>
     </footer>

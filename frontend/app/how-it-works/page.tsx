@@ -1,8 +1,34 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/Button';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { CheckCircle } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'How It Works - NO DRY STARTS®',
+  description: 'Learn how the NO DRY STARTS® pre-primer system builds full oil pressure before engine ignition to eliminate cold-start wear.',
+  openGraph: {
+    type: 'website',
+    url: 'https://nodrystarts.com/how-it-works',
+    title: 'How It Works - NO DRY STARTS®',
+    description: 'Learn how the NO DRY STARTS® pre-primer system eliminates cold-start engine wear.',
+    images: [
+      {
+        url: '/images/nodrystarts.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'NO DRY STARTS® How It Works',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'How It Works - NO DRY STARTS®',
+    description: 'Learn how the pre-primer builds oil pressure before engine ignition.',
+    images: ['/images/nodrystarts.jpeg'],
+  },
+};
 
 export default function HowItWorksPage() {
   return (

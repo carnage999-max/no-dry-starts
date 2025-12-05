@@ -1,8 +1,34 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/Button';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { CheckCircle, Wrench, Zap, Shield, Car, Truck, Gauge, Anchor, XCircle } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'The Solution - NO DRY STARTS®',
+  description: 'NO DRY STARTS® eliminates cold-start wear with electric pre-primer technology. Double your engine lifespan while reducing emissions.',
+  openGraph: {
+    type: 'website',
+    url: 'https://nodrystarts.com/the-solution',
+    title: 'The Solution - NO DRY STARTS®',
+    description: 'Revolutionary pre-primer system that eliminates cold-start wear and doubles engine lifespan.',
+    images: [
+      {
+        url: '/images/nodrystarts.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'NO DRY STARTS® The Solution',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Solution - NO DRY STARTS®',
+    description: 'Electric pre-primer builds oil pressure before engine ignition.',
+    images: ['/images/nodrystarts.jpeg'],
+  },
+};
 
 export default function TheSolutionPage() {
   return (

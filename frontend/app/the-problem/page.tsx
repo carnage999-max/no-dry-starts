@@ -1,8 +1,34 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/Button';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { XCircle } from 'lucide-react';
+import { AlertCircle, XCircle } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'The Problem - NO DRY STARTS®',
+  description: 'Cold-start engine wear costs billions annually. Engines lose 40% of their lifespan before oil pressure builds.',
+  openGraph: {
+    type: 'website',
+    url: 'https://nodrystarts.com/the-problem',
+    title: 'The Problem - NO DRY STARTS®',
+    description: 'Understanding cold-start engine wear and its devastating impact on engine longevity.',
+    images: [
+      {
+        url: '/images/nodrystarts.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'The Cold-Start Engine Problem',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Problem - NO DRY STARTS®',
+    description: 'Cold-start wear causes 40% engine damage before oil pressure builds.',
+    images: ['/images/nodrystarts.jpeg'],
+  },
+};
 
 export default function TheProblemPage() {
   return (
