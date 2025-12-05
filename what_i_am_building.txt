@@ -1,0 +1,422 @@
+Below is the full engineering outline for your coders to build the No Dry Starts®️ website.
+This is written at a developer-ready level: architecture, endpoints, components, database schema, admin panel, user flows, integrations, security, and deployment.
+
+This is everything the engineering team needs to build the platform from scratch.
+
+
+
+
+NO DRY STARTS®️ — COMPLETE ENGINEERING OUTLINE FOR FULL WEBSITE BUILD
+
+
+
+
+
+1. SYSTEM OVERVIEW
+
+
+A modern, fast, secure website for the No Dry Starts®️ engine-primer system.
+Architecture must support:
+
+High-impact marketing pages
+Patent & technical documentation library
+Video demonstrations
+Manufacturer onboarding
+Investor hub
+API endpoints for inquiry forms, lead capture, quote requests
+Admin CMS for controlling content
+Scalable AWS deployment
+
+
+Framework: Next.js or React for frontend, Node.js + Express or FastAPI for backend.
+Hosting: AWS (EC2, Lambda, S3, RDS, CloudFront).
+Database: PostgreSQL or DynamoDB.
+
+
+
+
+2. FRONTEND ARCHITECTURE
+
+
+
+2.1 Pages & Components
+
+
+
+Public Pages
+
+
+Home Page
+Hero banner with animation of crankshaft–bearing lubrication.
+CTA: “Download Patent Filing” / “Request Prototype Quote”.
+Product explainer modules.
+Image sliders.
+
+How It Works
+Technical animations showing hydrodynamic bearing lift.
+Exploded-view diagrams.
+Step-by-step process timeline.
+Embedded videos hosted via S3 + CloudFront.
+
+The Problem (Cold-Start Wear)
+Engine wear data visualization.
+Before/after comparison from the hydrodynamic film examples.
+Technical illustrations.
+
+The Solution (No Dry Starts®️ System)
+Design features.
+Flow diagrams.
+Cutaway animations.
+
+Patents & Documentation
+Download center for:
+Provisional patent
+SB/16 documents
+Diagrams
+Engineering drawings
+
+Files hosted on S3.
+
+Prototype Partners
+List of recommended manufacturers.
+Map + contact links.
+API-fed dynamic listing controlled from admin panel.
+
+Investors & Licensing
+Market opportunity analysis.
+Technical + economic summary.
+Secure link to download investor deck.
+
+Contact / RFQ Page
+Form to:
+Request a prototype quote
+Apply as manufacturing partner
+General inquiries
+
+
+
+
+
+Dynamic Components
+
+
+Global navigation bar
+Footer with legal notices
+Technical diagram carousel
+Video player
+File download component
+Lead-capture modal
+Contact forms connected to backend API
+Admin login modal
+
+
+
+
+
+3. BACKEND ARCHITECTURE
+
+
+
+3.1 API Endpoints (REST or GraphQL)
+
+
+
+Public Endpoints
+
+Method
+Endpoint
+Description
+POST
+/api/contact
+General contact submission
+POST
+/api/rfq
+Manufacturer or prototype quote request
+GET
+/api/docs
+Returns list of downloadable documents
+GET
+/api/manufacturers
+Returns manufacturer list
+GET
+/api/investor/download
+Secure investor deck download
+
+Admin Endpoints (Protected)
+
+Method
+Endpoint
+Description
+POST
+/api/admin/login
+JWT-based login
+POST
+/api/admin/upload-doc
+Upload PDFs, diagrams
+PUT
+/api/admin/manufacturer
+Add/edit manufacturers
+PUT
+/api/admin/website-content
+Update page sections
+GET
+/api/admin/leads
+View inquiries & RFQs
+DELETE
+/api/admin/doc/{id}
+Remove files
+
+
+
+
+4. DATABASE SCHEMA
+
+
+
+4.1 Tables
+
+
+
+users
+
+
+id (UUID)
+email
+password_hash
+role (admin)
+created_at
+
+
+
+manufacturers
+
+
+id (UUID)
+name
+description
+address
+phone
+email
+website
+active (bool)
+created_at
+
+
+
+documents
+
+
+id (UUID)
+file_name
+s3_url
+category (patent, diagrams, investor, etc.)
+created_at
+
+
+
+leads
+
+
+id (UUID)
+full_name
+email
+phone
+message
+type (contact, investor, manufacturer, rfq)
+created_at
+
+
+
+rfq_submissions
+
+
+id (UUID)
+full_name
+email
+phone
+company
+message
+attachment_s3 (optional)
+created_at
+
+
+
+content_blocks
+
+
+id (UUID)
+slug (e.g., homepage_hero, solution_section)
+html_content
+updated_at
+
+
+
+
+
+5. ADMIN PANEL (CMS)
+
+
+
+Features
+
+
+Login with JWT authentication
+Upload documents to S3
+Edit text content blocks for any page
+Add/edit/delete manufacturers
+View and export all leads (CSV)
+View RFQ submissions
+Reorder homepage sections visually (drag & drop)
+Toggle visibility of content modules
+
+
+
+Tech
+
+
+React-based admin dashboard
+Protected routes
+Role-based permissions (admin only)
+
+
+
+
+
+6. SECURITY REQUIREMENTS
+
+
+Enforce HTTPS (AWS ACM)
+JWT authentication for all admin routes
+Encryption at rest (RDS encrypted, S3 KMS)
+Input sanitization & validation
+Rate limiting on public forms
+CloudFront + WAF for DDoS prevention
+
+
+
+
+
+7. AWS INFRASTRUCTURE MAP
+
+
+
+Core Services
+
+
+S3 – file storage (docs, PDFs, images)
+CloudFront – CDN for global delivery
+EC2 or Lambda – backend execution
+API Gateway (if using Lambda)
+RDS PostgreSQL – main database
+Route 53 – domain & DNS
+IAM – admin user roles
+CloudWatch – monitoring/logging
+
+
+
+Deployment Pipeline
+
+
+Code → GitHub
+CI/CD → GitHub Actions
+Automatic deploy to EC2/Lambda
+File uploads → S3
+
+
+
+
+
+8. USER FLOWS
+
+
+
+8.1 Manufacturer RFQ Flow
+
+
+User opens RFQ form
+Enters details, optional CAD/PDF upload
+Submission stored in DB
+File stored in S3
+Admin gets email alert via SES
+Admin views RFQ in dashboard
+
+
+
+8.2 Investor Download Flow
+
+
+User enters email
+System generates secure, time-limited link
+File delivered through CloudFront
+Lead stored in DB
+
+
+
+8.3 Prototype Partner Join Flow
+
+
+Manufacturer fills application
+Backend stats stored
+Admin reviews
+Admin toggles “approved” → appears on public site
+
+
+
+
+
+9. PERFORMANCE REQUIREMENTS
+
+
+TTFB < 100ms globally (via CloudFront cache)
+Images auto-compressed WebP
+Lazy loading for diagrams/videos
+Pre-render all static pages
+API response times under 150ms
+
+
+
+
+
+10. CODER DELIVERABLE CHECKLIST
+
+
+
+Frontend
+
+
+React/Next.js build
+Full mobile responsiveness
+All animations & diagrams installed
+Download center
+RFQ & contact forms
+
+
+
+Backend
+
+
+REST API ready
+JWT authentication for admin
+Email notification system (SES)
+Document storage service (S3)
+Database schema & migrations
+
+
+
+Admin Panel
+
+
+File uploader
+Content editor
+Lead management
+Manufacturer directory editor
+
+
+
+Deployment
+
+
+AWS configured
+CI/CD pipeline activated
+SSL certificate installed
+
