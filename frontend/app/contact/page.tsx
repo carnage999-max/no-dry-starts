@@ -43,8 +43,51 @@ export default function ContactPage() {
     <div className="min-h-screen">
       <Navigation />
 
+      {/* Founder Section */}
+      <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-[var(--color-graphite-900)]">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-[var(--color-graphite-950)] rounded-lg p-8 md:p-12 relative overflow-hidden">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
+              {/* Left Side - Portrait */}
+              <div className="flex justify-center md:justify-start order-2 md:order-1">
+                <div className="relative">
+                  <img 
+                    src="/images/nathan.jpeg" 
+                    alt="Nathan Reardon - Founder of No Dry Starts" 
+                    className="w-64 h-64 md:w-80 md:h-80 object-cover rounded-lg border-4 border-[var(--color-tiger-orange-500)] shadow-xl"
+                  />
+                </div>
+              </div>
+
+              {/* Right Side - Content */}
+              <div className="space-y-4 order-1 md:order-2 relative">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-white-100)]">
+                  Founder - Nathan Reardon
+                </h2>
+                <p className="text-xl md:text-2xl text-[var(--color-tiger-orange-400)] font-semibold">
+                  The No Dry Starts<span className="text-sm md:text-base align-super">®</span> system was founded by
+                </p>
+                <div className="relative mt-8">
+                  {/* ASE Badge - Positioned like in the image */}
+                  <div className="absolute -right-8 -top-8 md:-right-12 md:-top-12 opacity-20 md:opacity-30">
+                    <img 
+                      src="/images/ase.png" 
+                      alt="ASE Certification" 
+                      className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 object-contain"
+                    />
+                  </div>
+                  <p className="text-lg md:text-xl text-[var(--color-white-100)] leading-relaxed relative z-10">
+                    automotive veteran and ASE Triple Master Nathan Reardon, who graduated top of his class from Universal Technical Institute in Phoenix, Arizona.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Form */}
-      <main className="pt-24 pb-20 px-4 sm:px-6 lg:px-8">
+      <main className="pt-12 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-5xl font-bold text-[var(--color-white-100)] mb-4">
             Get in Touch
