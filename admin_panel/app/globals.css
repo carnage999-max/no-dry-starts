@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-xs: 360px;
+}
+
+@layer base {
+  /* Prevent horizontal overflow on all viewports */
+  html {
+    overflow-x: hidden;
+  }
+
+  :root {
+    /* Color Palette - Correct Brand Colors */
+    --color-white-50: #ffffff;
+    --color-white-100: #fdffff;
+    --color-white-200: #fcfeff;
+    --color-white-300: #f5f5f5;
+    --color-white-400: #e0e0e0;
+    --color-white-500: #fdffff;
+    --color-white-600: #d0d0d0;
+    --color-white-700: #b0b0b0;
+    --color-white-800: #909090;
+    --color-white-900: #707070;
+    --color-white-950: #505050;
+
+    --color-tiger-orange-50: #fef5ed;
+    --color-tiger-orange-100: #fde9d8;
+    --color-tiger-orange-200: #fbd3b1;
+    --color-tiger-orange-300: #f9bd8a;
+    --color-tiger-orange-400: #f7a763;
+    --color-tiger-orange-500: #f38920;
+    --color-tiger-orange-600: #d77410;
+    --color-tiger-orange-700: #a1570c;
+    --color-tiger-orange-800: #6b3a08;
+    --color-tiger-orange-900: #351d04;
+    --color-tiger-orange-950: #1a0e02;
+
+    --color-graphite-50: #e8e8e9;
+    --color-graphite-100: #d1d1d3;
+    --color-graphite-200: #a3a3a7;
+    --color-graphite-300: #75757b;
+    --color-graphite-400: #47474f;
+    --color-graphite-500: #36363a;
+    --color-graphite-600: #2b2b2e;
+    --color-graphite-700: #202023;
+    --color-graphite-800: #161617;
+    --color-graphite-900: #0b0b0c;
+    --color-graphite-950: #060606;
+
+    --color-khaki-50: #f7f5f3;
+    --color-khaki-100: #efe9e6;
+    --color-khaki-200: #dfd3cd;
+    --color-khaki-300: #cfbdb4;
+    --color-khaki-400: #bfafa4;
+    --color-khaki-500: #aa9a8f;
+    --color-khaki-600: #8a7b72;
+    --color-khaki-700: #6a5c55;
+    --color-khaki-800: #4a3e38;
+    --color-khaki-900: #2a1f1c;
+
+  /* Dark Theme - Admin has slightly different tones */
+  --background: #18181b;
+  --foreground: #e5ffff;
+  --primary: #f2800d;
+  --secondary: #00ffff;
+  --accent: #00cccc;
+  --muted: #313135;
+  --border: #494950;
+  --card-bg: #1e1e21;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    overflow-x: hidden;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+  a:hover {
+    color: var(--accent);
+  }
+}
