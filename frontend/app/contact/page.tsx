@@ -123,8 +123,10 @@ export default function ContactPage() {
                 <option value="contact">General Contact</option>
                 <option value="investor">Investor Inquiry</option>
                 <option value="manufacturer">Manufacturer Application</option>
-                <option value="rfq">Request for Quote</option>
               </select>
+              <p className="text-sm text-[var(--color-white-500)] mt-2">
+                Need a prototype quote? <Link href="/rfq" className="text-[var(--color-tiger-orange-400)] hover:underline">Use our dedicated RFQ form</Link>
+              </p>
             </div>
 
             <div>

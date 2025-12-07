@@ -319,11 +319,6 @@ export default function HowItWorksPage() {
                 Request Quote
               </Button>
             </Link>
-            <Link href="/patents">
-              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-[var(--color-tiger-orange-900)]">
-                View Patents
-              </Button>
-            </Link>
           </div>
         </div>
       </section>

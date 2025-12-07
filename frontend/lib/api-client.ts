@@ -54,6 +54,8 @@ export interface ContentBlock {
   slug: string;
   title: string;
   html_content: string;
+  page?: string;
+  order?: number;
   updated_at?: string;
   created_at?: string;
 }
@@ -130,7 +132,8 @@ class ApiClient {
 
   // Manufacturers
   async getManufacturers(): Promise<Manufacturer[]> {
-    return this.request('/manufacturers/');
+    const data = await this.request<{ results: Manufacturer[] }>('/manufacturers/');
+    return data.results || [];
   }
 
   async getManufacturer(id: string): Promise<Manufacturer> {
@@ -160,7 +163,8 @@ class ApiClient {
   // Documents
   async getDocuments(category?: string): Promise<Document[]> {
     const query = category ? `?category=${category}` : '';
-    return this.request(`/documents/${query}`);
+    const data = await this.request<{ results: Document[] }>(`/documents/${query}`);
+    return data.results || [];
   }
 
   async getDocument(id: string): Promise<Document> {
@@ -220,7 +224,8 @@ class ApiClient {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const error = await response.json().catch(() => ({ detail: 'An error occurred' }));
+      throw new Error(error.detail || `HTTP error! status: ${response.status}`);
     }
 
     return response.json();
@@ -232,11 +237,37 @@ class ApiClient {
 
   // Content Blocks
   async getContentBlocks(): Promise<ContentBlock[]> {
-    return this.request('/content/');
+    const data = await this.request<{ results: ContentBlock[] } | ContentBlock[]>('/content/');
+    // Handle both paginated and non-paginated responses
+    if (Array.isArray(data)) {
+      return data;
+    }
+    return data.results || [];
   }
 
   async getContentBlock(slug: string): Promise<ContentBlock> {
     return this.request(`/content/${slug}/`);
+  }
+
+  // Investor Downloads
+  async requestInvestorDownload(email: string, name?: string): Promise<{ message: string; expires_at: string }> {
+    return this.request('/investor/request-download/', {
+      method: 'POST',
+      body: JSON.stringify({ email, name }),
+    });
+  }
+
+  async downloadInvestorDocument(token: string): Promise<Blob> {
+    const response = await fetch(`${this.baseUrl}/investor/download/${token}/`, {
+      method: 'GET',
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ detail: 'Download failed' }));
+      throw new Error(error.detail || `HTTP error! status: ${response.status}`);
+    }
+
+    return response.blob();
   }
 
   async updateContentBlock(slug: string, data: Partial<ContentBlock>): Promise<ContentBlock> {

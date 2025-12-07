@@ -28,9 +28,6 @@ export const Footer = () => {
               <Link href="/the-solution" className="block text-[var(--color-white-400)] hover:text-[var(--color-white-200)] transition-colors text-sm">
                 The Solution
               </Link>
-              <Link href="/patents" className="block text-[var(--color-white-400)] hover:text-[var(--color-white-200)] transition-colors text-sm">
-                Patents & Docs
-              </Link>
             </div>
           </div>
 
@@ -40,12 +37,6 @@ export const Footer = () => {
             <div className="space-y-2">
               <Link href="/investors" className="block text-[var(--color-white-400)] hover:text-[var(--color-white-200)] transition-colors text-sm">
                 Investor Information
-              </Link>
-              <Link href="/partners" className="block text-[var(--color-white-400)] hover:text-[var(--color-white-200)] transition-colors text-sm">
-                Prototype Partners
-              </Link>
-              <Link href="/contact" className="block text-[var(--color-white-400)] hover:text-[var(--color-white-200)] transition-colors text-sm">
-                Request Prototype Quote
               </Link>
             </div>
           </div>

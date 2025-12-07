@@ -30,9 +30,6 @@ export const Navigation = () => {
             <Link href="/the-solution" className="text-[var(--color-white-200)] hover:text-[var(--color-white-500)] transition-colors">
               The Solution
             </Link>
-            <Link href="/patents" className="text-[var(--color-white-200)] hover:text-[var(--color-white-500)] transition-colors">
-              Patents
-            </Link>
             <Link href="/partners" className="text-[var(--color-white-200)] hover:text-[var(--color-white-500)] transition-colors">
               Partners
             </Link>
@@ -79,13 +76,6 @@ export const Navigation = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 The Solution
-              </Link>
-              <Link
-                href="/patents"
-                className="block px-3 py-2 text-[var(--color-white-200)] hover:text-[var(--color-white-500)] hover:bg-[var(--color-graphite-800)] rounded-md transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Patents
               </Link>
               <Link
                 href="/partners"
