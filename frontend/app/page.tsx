@@ -58,20 +58,9 @@ export default function Home() {
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[var(--color-graphite-900)] to-[var(--background)]">
         <div className="max-w-7xl mx-auto">
           {renderContentBlock(getContentBlock('homepage_hero'), (
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Hero Image - First on mobile, second on desktop */}
-              <div className="relative flex items-center justify-center order-1 lg:order-2">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-[var(--color-tiger-orange-500)] max-w-md lg:max-w-lg">
-                  <img 
-                    src="/images/engine-hero.png" 
-                    alt="Engine - The worst thing you can do to your engine is to start it. We fix that." 
-                    className="w-full h-auto object-contain"
-                  />
-                </div>
-              </div>
-
-              {/* Hero Content - Second on mobile, first on desktop */}
-              <div className="order-2 lg:order-1">
+            <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 items-start">
+              {/* Left Column - Hero Content */}
+              <div className="order-1 lg:order-1">
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-[var(--color-white-100)] mb-6 leading-tight">
                   NO DRY STARTS<span className="text-2xl md:text-3xl lg:text-4xl align-super">®</span>
                 </h1>
@@ -84,7 +73,22 @@ export default function Home() {
                 <p className="text-base text-[var(--color-khaki-400)] mb-8">
                   Build Full Oil Pressure Before Ignition
                 </p>
-                <div className="bg-[var(--color-graphite-900)] bg-opacity-80 border border-[var(--color-tiger-orange-500)] rounded-lg p-6 mt-8">
+              </div>
+
+              {/* Hero Image - Second on mobile, second on desktop */}
+              <div className="relative flex items-center justify-center order-2 lg:order-2">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-[var(--color-tiger-orange-500)] max-w-md lg:max-w-lg">
+                  <img 
+                    src="/images/engine-hero.png" 
+                    alt="Engine - The worst thing you can do to your engine is to start it. We fix that." 
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+              </div>
+
+              {/* Benefit Statement - Third on mobile, in left column on desktop */}
+              <div className="order-3 lg:order-1 lg:col-span-1">
+                <div className="bg-[var(--color-graphite-900)] bg-opacity-80 border border-[var(--color-tiger-orange-500)] rounded-lg p-6">
                   <p className="text-lg md:text-xl lg:text-2xl font-semibold text-[var(--color-white-100)] leading-relaxed">
                     By eliminating dry starts and maintaining full oil circulation, the{' '}
                     <span className="text-[var(--color-tiger-orange-400)]">No Dry Starts<span className="text-xs md:text-sm lg:text-base align-super">®</span></span> system can{' '}

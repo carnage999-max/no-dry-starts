@@ -15,7 +15,7 @@ export const Navigation = () => {
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-3" onClick={() => setIsMobileMenuOpen(false)}>
               <Image src="/images/nodrystarts.jpeg" alt="NO DRY STARTS Logo" width={40} height={40} className="rounded" />
-              <span className="text-2xl font-bold text-[var(--color-tiger-orange-500)]">NO DRY STARTS®</span>
+              <span className="text-2xl font-bold text-[var(--color-tiger-orange-500)]">NO DRY STARTS<span className="text-xs align-super">®</span></span>
             </Link>
           </div>
 

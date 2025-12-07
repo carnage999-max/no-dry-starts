@@ -9,7 +9,7 @@ export const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-xl font-bold text-[var(--color-tiger-orange-500)]">NO DRY STARTS®</h3>
+            <h3 className="text-xl font-bold text-[var(--color-tiger-orange-500)]">NO DRY STARTS<span className="text-xs align-super">®</span></h3>
             <p className="text-[var(--color-white-400)] text-sm">
               The first system to eliminate cold-start engine wear by building full oil pressure before ignition.
             </p>
@@ -73,7 +73,7 @@ export const Footer = () => {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-[var(--color-graphite-800)] text-center text-sm text-[var(--color-white-400)]">
-          <p>&copy; {new Date().getFullYear()} No Dry Starts®. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} No Dry Starts<span className="text-xs align-super">®</span>. All rights reserved.</p>
         </div>
       </div>
     </footer>
