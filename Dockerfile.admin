@@ -19,6 +19,9 @@ RUN pnpm install --frozen-lockfile
 # Copy source code
 COPY admin_panel/ .
 
+# Debug: Print the build arg value
+RUN echo "Build arg NEXT_PUBLIC_API_URL is set to: ${NEXT_PUBLIC_API_URL}"
+
 # Build the Next.js app with environment variables
 # Pass build args as environment variables so Next.js can pick them up at build time
 RUN NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL} \
