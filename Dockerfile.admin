@@ -40,8 +40,8 @@ COPY --from=builder /app/public ./public
 EXPOSE 3001
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
     CMD wget --quiet --tries=1 --spider http://localhost:3001/ || exit 1
 
-# Run Next.js
-CMD ["pnpm", "start"]
+# Run Next.js on port 3001
+CMD ["pnpm", "start", "-p", "3001"]
