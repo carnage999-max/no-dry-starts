@@ -233,21 +233,14 @@ else:
         },
     }
 
-# AWS SES Configuration for Email
-if os.environ.get('USE_SES', 'False') == 'True':
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = f'email-smtp.{os.environ.get("AWS_SES_REGION", "us-east-1")}.amazonaws.com'
-    EMAIL_PORT = 587
-    EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = os.environ.get('AWS_SES_ACCESS_KEY_ID')
-    EMAIL_HOST_PASSWORD = os.environ.get('AWS_SES_SECRET_ACCESS_KEY')
-    DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@nodrystarts.com')
-    SERVER_EMAIL = DEFAULT_FROM_EMAIL
-else:
-    # Console email backend for development
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    DEFAULT_FROM_EMAIL = 'noreply@nodrystarts.com'
+# Resend Email Configuration
+RESEND_API_KEY = os.environ.get('RESEND_API_KEY')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'info@nathanreardon.com')
 
 # Admin notification emails
 ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', 'admin@nodrystarts.com')
 ADMINS = [(os.environ.get('ADMIN_NAME', 'Admin'), ADMIN_EMAIL)]
+
+# Inquiry notification emails
+INQUIRY_NOTIFICATION_EMAIL = os.environ.get('INQUIRY_NOTIFICATION_EMAIL', 'nathan@membershipauto.com')
+RFQ_NOTIFICATION_EMAIL = os.environ.get('RFQ_NOTIFICATION_EMAIL', 'nathan@membershipauto.com')

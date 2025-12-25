@@ -1,7 +1,6 @@
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.response import Response
-from django.core.mail import send_mail
 from django.conf import settings
 from django.http import FileResponse, Http404, HttpResponse
 from django.shortcuts import get_object_or_404
@@ -10,6 +9,12 @@ from django.utils.decorators import method_decorator
 import csv
 from .models import Lead, RFQSubmission, InvestorDownloadToken
 from .serializers import LeadSerializer, RFQSubmissionSerializer, InvestorDownloadRequestSerializer
+from .email_service import (
+    send_inquiry_notification,
+    send_rfq_notification,
+    send_investor_download_link,
+    send_investor_download_admin_notification,
+)
 from docs.models import Document
 
 
@@ -59,35 +64,12 @@ class LeadViewSet(viewsets.ModelViewSet):
         """Send email notification when new lead is created"""
         lead = serializer.save()
         
-        # Send email notification to admin
+        # Send email notification
         try:
-            subject = f'New {lead.get_inquiry_type_display()} Inquiry - No Dry Starts'
-            message = f"""
-New inquiry received:
-
-Name: {lead.full_name}
-Email: {lead.email}
-Phone: {lead.phone}
-Type: {lead.get_inquiry_type_display()}
-
-Message:
-{lead.message}
-
----
-Received: {lead.created_at}
-View in admin panel: {settings.ALLOWED_HOSTS[0] if settings.ALLOWED_HOSTS else 'localhost'}/admin
-            """
-            
-            send_mail(
-                subject=subject,
-                message=message,
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[settings.ADMIN_EMAIL],
-                fail_silently=True,
-            )
+            send_inquiry_notification(lead)
         except Exception as e:
             # Log error but don't fail the request
-            print(f"Failed to send lead notification email: {e}")
+            print(f"Failed to send inquiry notification email: {e}")
 
 
 @method_decorator(ratelimit(key='ip', rate='5/h', method='POST'), name='create')
@@ -129,35 +111,9 @@ class RFQSubmissionViewSet(viewsets.ModelViewSet):
         """Send email notification when new RFQ is submitted"""
         rfq = serializer.save()
         
-        # Send email notification to admin
+        # Send email notification to admin and RFQ email
         try:
-            subject = 'New RFQ Submission - No Dry Starts'
-            message = f"""
-New RFQ (Request for Quote) submission received:
-
-Name: {rfq.full_name}
-Email: {rfq.email}
-Phone: {rfq.phone}
-Company: {rfq.company or 'N/A'}
-
-Message:
-{rfq.message}
-
-Attachment: {'Yes' if rfq.attachment else 'No'}
-{f'File: {rfq.attachment.url}' if rfq.attachment else ''}
-
----
-Received: {rfq.created_at}
-View in admin panel: {settings.ALLOWED_HOSTS[0] if settings.ALLOWED_HOSTS else 'localhost'}/admin
-            """
-            
-            send_mail(
-                subject=subject,
-                message=message,
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[settings.ADMIN_EMAIL],
-                fail_silently=True,
-            )
+            send_rfq_notification(rfq)
         except Exception as e:
             # Log error but don't fail the request
             print(f"Failed to send RFQ notification email: {e}")
@@ -194,48 +150,18 @@ def request_investor_download(request):
     
     # Send email with download link
     try:
-        subject = 'Your No Dry Starts® Investor Documents'
-        message = f"""
-Thank you for your interest in No Dry Starts®!
-
-You can download the investor documents using the secure link below:
-
-{download_url}
-
-This link will expire in 48 hours and can be used up to 3 times.
-
-If you have any questions, please don't hesitate to contact us.
-
-Best regards,
-No Dry Starts® Team
-        """
-        
-        send_mail(
-            subject=subject,
-            message=message,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[email],
-            fail_silently=False,
+        send_investor_download_link(
+            email=email,
+            download_url=download_url,
+            token_expires=token.expires_at
         )
         
         # Notify admin
-        admin_subject = 'New Investor Document Request - No Dry Starts'
-        admin_message = f"""
-New investor document download requested:
-
-Email: {email}
-Token: {token.token}
-Expires: {token.expires_at}
-
-Download URL: {download_url}
-        """
-        
-        send_mail(
-            subject=admin_subject,
-            message=admin_message,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[settings.ADMIN_EMAIL],
-            fail_silently=True,
+        send_investor_download_admin_notification(
+            email=email,
+            token=token.token,
+            token_expires=token.expires_at,
+            download_url=download_url
         )
         
     except Exception as e:
