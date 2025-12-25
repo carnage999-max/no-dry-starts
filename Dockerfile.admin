@@ -20,9 +20,10 @@ RUN pnpm install --frozen-lockfile
 COPY admin_panel/ .
 
 # Build the Next.js app with environment variables
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_ADMIN_API_URL=$NEXT_PUBLIC_ADMIN_API_URL
-RUN pnpm run build
+# Pass build args as environment variables so Next.js can pick them up at build time
+RUN NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL} \
+    NEXT_PUBLIC_ADMIN_API_URL=${NEXT_PUBLIC_ADMIN_API_URL} \
+    pnpm run build
 
 # Production stage
 FROM node:20-alpine
