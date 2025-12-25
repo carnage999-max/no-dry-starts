@@ -1,6 +1,7 @@
 """
 Email service using Resend for sending transactional emails.
 """
+
 import os
 from django.conf import settings
 
@@ -13,31 +14,31 @@ except ImportError:
 def send_email(to_email, subject, message, html=None):
     """
     Send email using Resend API.
-    
+
     Args:
         to_email: Recipient email address or list of addresses
         subject: Email subject
         message: Plain text email body
         html: Optional HTML email body
-    
+
     Returns:
         dict: Response from Resend API
     """
     if not Resend:
         print("Resend package not installed")
         return {"error": "Email service not available"}
-    
+
     api_key = settings.RESEND_API_KEY
     if not api_key:
         print("RESEND_API_KEY not configured")
         return {"error": "Email service not configured"}
-    
+
     client = Resend(api_key)
-    
+
     # Ensure to_email is a list
     if isinstance(to_email, str):
         to_email = [to_email]
-    
+
     try:
         response = client.emails.send(
             from_=settings.DEFAULT_FROM_EMAIL,
@@ -55,11 +56,11 @@ def send_email(to_email, subject, message, html=None):
 def send_inquiry_notification(lead):
     """
     Send notification email for new inquiry submission.
-    
+
     Args:
         lead: Lead model instance
     """
-    subject = f'New {lead.get_inquiry_type_display()} Inquiry - No Dry Starts®'
+    subject = f"New {lead.get_inquiry_type_display()} Inquiry - No Dry Starts®"
     message = f"""
 New inquiry received:
 
@@ -74,7 +75,7 @@ Message:
 ---
 Received: {lead.created_at}
     """
-    
+
     html = f"""
     <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
         <h2>New Inquiry - No Dry Starts®</h2>
@@ -94,23 +95,23 @@ Received: {lead.created_at}
         <p style="color: #666; font-size: 0.9em;">Received: {lead.created_at}</p>
     </div>
     """
-    
+
     return send_email(
         to_email=settings.INQUIRY_NOTIFICATION_EMAIL,
         subject=subject,
         message=message,
-        html=html
+        html=html,
     )
 
 
 def send_rfq_notification(rfq):
     """
     Send notification email for new RFQ submission to admin and RFQ email.
-    
+
     Args:
         rfq: RFQSubmission model instance
     """
-    subject = f'New RFQ Submission - No Dry Starts®'
+    subject = f"New RFQ Submission - No Dry Starts®"
     message = f"""
 New RFQ (Request for Quote) submission received:
 
@@ -128,7 +129,7 @@ Attachment: {'Yes' if rfq.attachment else 'No'}
 ---
 Received: {rfq.created_at}
     """
-    
+
     html = f"""
     <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
         <h2>New RFQ Submission - No Dry Starts®</h2>
@@ -150,28 +151,23 @@ Received: {rfq.created_at}
         <p style="color: #666; font-size: 0.9em;">Received: {rfq.created_at}</p>
     </div>
     """
-    
+
     # Send to both admin and RFQ notification email
     to_emails = [settings.ADMIN_EMAIL, settings.RFQ_NOTIFICATION_EMAIL]
-    
-    return send_email(
-        to_email=to_emails,
-        subject=subject,
-        message=message,
-        html=html
-    )
+
+    return send_email(to_email=to_emails, subject=subject, message=message, html=html)
 
 
 def send_investor_download_link(email, download_url, token_expires):
     """
     Send investor download link email to user.
-    
+
     Args:
         email: Recipient email address
         download_url: Secure download link
         token_expires: Token expiration datetime
     """
-    subject = 'Your No Dry Starts® Investor Documents'
+    subject = "Your No Dry Starts® Investor Documents"
     message = f"""
 Thank you for your interest in No Dry Starts®!
 
@@ -186,7 +182,7 @@ If you have any questions, please don't hesitate to contact us.
 Best regards,
 No Dry Starts® Team
     """
-    
+
     html = f"""
     <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px;">
         <h2>No Dry Starts® Investor Documents</h2>
@@ -214,26 +210,23 @@ No Dry Starts® Team
         </p>
     </div>
     """
-    
-    return send_email(
-        to_email=email,
-        subject=subject,
-        message=message,
-        html=html
-    )
+
+    return send_email(to_email=email, subject=subject, message=message, html=html)
 
 
-def send_investor_download_admin_notification(email, token, token_expires, download_url):
+def send_investor_download_admin_notification(
+    email, token, token_expires, download_url
+):
     """
     Send admin notification when investor document is requested.
-    
+
     Args:
         email: Requester email
         token: Download token
         token_expires: Token expiration datetime
         download_url: Download URL
     """
-    subject = 'New Investor Document Request - No Dry Starts®'
+    subject = "New Investor Document Request - No Dry Starts®"
     message = f"""
 New investor document download requested:
 
@@ -243,7 +236,7 @@ Expires: {token_expires}
 
 Download URL: {download_url}
     """
-    
+
     html = f"""
     <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
         <h2>New Investor Document Request - No Dry Starts®</h2>
@@ -259,10 +252,7 @@ Download URL: {download_url}
         </p>
     </div>
     """
-    
+
     return send_email(
-        to_email=settings.ADMIN_EMAIL,
-        subject=subject,
-        message=message,
-        html=html
+        to_email=settings.ADMIN_EMAIL, subject=subject, message=message, html=html
     )
