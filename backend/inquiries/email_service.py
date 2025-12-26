@@ -6,9 +6,10 @@ import os
 from django.conf import settings
 
 try:
-    from resend import Resend
+    import resend
+    RESEND_AVAILABLE = True
 except ImportError:
-    Resend = None
+    RESEND_AVAILABLE = False
 
 
 def send_email(to_email, subject, message, html=None):
@@ -24,7 +25,7 @@ def send_email(to_email, subject, message, html=None):
     Returns:
         dict: Response from Resend API
     """
-    if not Resend:
+    if not RESEND_AVAILABLE:
         print("Resend package not installed")
         return {"error": "Email service not available"}
 
@@ -33,20 +34,21 @@ def send_email(to_email, subject, message, html=None):
         print("RESEND_API_KEY not configured")
         return {"error": "Email service not configured"}
 
-    client = Resend(api_key)
+    # Set the API key
+    resend.api_key = api_key
 
     # Ensure to_email is a list
     if isinstance(to_email, str):
         to_email = [to_email]
 
     try:
-        response = client.emails.send(
-            from_=settings.DEFAULT_FROM_EMAIL,
-            to=to_email,
-            subject=subject,
-            text=message,
-            html=html,
-        )
+        response = resend.Emails.send({
+            "from": settings.DEFAULT_FROM_EMAIL,
+            "to": to_email,
+            "subject": subject,
+            "text": message,
+            "html": html or message,
+        })
         return response
     except Exception as e:
         print(f"Failed to send email via Resend: {e}")
