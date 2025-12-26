@@ -26,12 +26,12 @@ def send_email(to_email, subject, message, html=None):
         dict: Response from Resend API
     """
     if not RESEND_AVAILABLE:
-        print("Resend package not installed")
+        print("[EMAIL] ERROR: Resend package not installed")
         return {"error": "Email service not available"}
 
     api_key = settings.RESEND_API_KEY
     if not api_key:
-        print("RESEND_API_KEY not configured")
+        print("[EMAIL] ERROR: RESEND_API_KEY not configured")
         return {"error": "Email service not configured"}
 
     # Set the API key
@@ -41,6 +41,8 @@ def send_email(to_email, subject, message, html=None):
     if isinstance(to_email, str):
         to_email = [to_email]
 
+    print(f"[EMAIL] Attempting to send email to {to_email} with subject: {subject}")
+    
     try:
         response = resend.Emails.send({
             "from": settings.DEFAULT_FROM_EMAIL,
@@ -49,9 +51,12 @@ def send_email(to_email, subject, message, html=None):
             "text": message,
             "html": html or message,
         })
+        print(f"[EMAIL] Successfully sent email. Response: {response}")
         return response
     except Exception as e:
-        print(f"Failed to send email via Resend: {e}")
+        print(f"[EMAIL] ERROR: Failed to send email via Resend: {e}")
+        import traceback
+        traceback.print_exc()
         return {"error": str(e)}
 
 
